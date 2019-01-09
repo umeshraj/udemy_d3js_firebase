@@ -1,1 +1,1 @@
-udemy_build_data_visualizations_with_d3js_and_Firebase
+Exercises from Udemy's [Welcome to ]Build Data Visualizations with D3.js & Firebase](https://www.udemy.com/build-data-uis-with-d3-firebase/learn/v4/overview)
