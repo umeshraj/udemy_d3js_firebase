@@ -5,15 +5,13 @@ const svg = d3.select("svg");
 const rect = svg
   .select("rect")
   .data(data)
-  .attr("width", function(d, i, n) {
-    console.log(i, n);
+  .attr("width", (d, i, n) => {
+    console.log(n[i]);
     return d.width;
   })
-  .attr("height", function(d) {
+  .attr("height", d => {
     return d.height;
   })
-  .attr("fill", function(d) {
+  .attr("fill", d => {
     return d.fill;
   });
-
-console.log(rect);
