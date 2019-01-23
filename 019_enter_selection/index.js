@@ -6,6 +6,7 @@ const data = [
 
 const svg = d3.select("svg");
 
+// First update elements in the DOM
 const rect = svg
   .selectAll("rect")
   .data(data)
@@ -13,4 +14,11 @@ const rect = svg
   .attr("height", d => d.height)
   .attr("fill", d => d.fill);
 
+// Update elements that are not yet in the dom
+rect
+  .enter()
+  .append("rect")
+  .attr("height", d => d.height)
+  .attr("width", d => d.width)
+  .attr("fill", d => d.fill);
 console.log(rect);
