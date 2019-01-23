@@ -6,15 +6,16 @@ const data = [
 
 const svg = d3.select("svg");
 
-// First update elements in the DOM
-const rect = svg
-  .selectAll("rect")
-  .data(data)
+// Join data to rect (and make enter selections)
+const rect = svg.selectAll("rect").data(data);
+
+// update existing data: add attr to rects already in DOM
+rect
   .attr("width", (d, i, n) => d.width)
   .attr("height", d => d.height)
   .attr("fill", d => d.fill);
 
-// Update elements that are not yet in the dom
+// Append the enter selection to DOM
 rect
   .enter()
   .append("rect")
