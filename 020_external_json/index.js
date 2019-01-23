@@ -1,25 +1,28 @@
-// Select svg container
-
+// Select svg first
 const svg = d3.select("svg");
 
-// grab data
-d3.json("planets.json").then(data => {
-  // map data
-  const circs = svg.selectAll("circle").data(data);
+// Get data and plot
+d3.json("planets.json").then(data => plotCircles(data));
 
-  // add attr to circles already in DOM
+// plot circles
+function plotCircles(data) {
+  // map data to circles
+  const circs = svg.selectAll("circle").data(data);
+  console.log(circs);
+
+  // Update existing circles first
   circs
     .attr("cy", 200)
-    .attr("cx", d => d.distance)
-    .attr("r", d => d.radius)
-    .attr("fill", d => d.fill);
+    .attr("cx", data => data.distance)
+    .attr("r", data => data.radius)
+    .attr("fill", data => data.fill);
 
-  // update enter selection
+  // Update virtual circles
   circs
     .enter()
     .append("circle")
     .attr("cy", 200)
-    .attr("cx", d => d.distance)
-    .attr("r", d => d.radius)
-    .attr("fill", d => d.fill);
-});
+    .attr("cx", data => data.distance)
+    .attr("r", data => data.radius)
+    .attr("fill", data => data.fill);
+}
