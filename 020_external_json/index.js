@@ -8,7 +8,6 @@ d3.json("planets.json").then(data => plotCircles(data));
 function plotCircles(data) {
   // map data to circles
   const circs = svg.selectAll("circle").data(data);
-  console.log(circs);
 
   // Update existing circles first
   circs
