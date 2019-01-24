@@ -6,7 +6,7 @@ d3.json("menu.json").then(data => {
   // setting up scales
   const y = d3
     .scaleLinear()
-    .domain([0, 1000])
+    .domain([0, d3.max(data, d => d.orders)])
     .range([0, 500]);
 
   const x = d3
@@ -15,6 +15,13 @@ d3.json("menu.json").then(data => {
     .range([0, 500])
     .paddingInner(0.2)
     .paddingOuter(0.2);
+
+  // const min = d3.min(data, d => d.orders);
+  // const max = d3.max(data, d => d.orders);
+  // const extent = d3.extent(data, d => d.orders);
+  // console.log(min);
+  // console.log(max);
+  // console.log(extent);
 
   // join the data to a rect
   const rects = svg.selectAll("rect").data(data);
