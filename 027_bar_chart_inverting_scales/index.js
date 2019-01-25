@@ -59,7 +59,7 @@ d3.json("menu.json").then(data => {
   // handle the existing rect
   rects
     .attr("width", x.bandwidth)
-    .attr("height", d => y(d.orders))
+    .attr("height", d => graphHeight - y(d.orders))
     .attr("fill", "orange")
     .attr("x", d => x(d.name));
 
@@ -68,7 +68,7 @@ d3.json("menu.json").then(data => {
     .enter()
     .append("rect")
     .attr("width", x.bandwidth)
-    .attr("height", d => y(d.orders))
+    .attr("height", d => graphHeight - y(d.orders))
     .attr("fill", "orange")
     .attr("x", d => x(d.name));
 
