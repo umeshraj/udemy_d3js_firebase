@@ -61,7 +61,8 @@ d3.json("menu.json").then(data => {
     .attr("width", x.bandwidth)
     .attr("height", d => graphHeight - y(d.orders))
     .attr("fill", "orange")
-    .attr("x", d => x(d.name));
+    .attr("x", d => x(d.name))
+    .attr("y", d => y(d.orders));
 
   // append the enter selection to dom
   rects
@@ -70,7 +71,8 @@ d3.json("menu.json").then(data => {
     .attr("width", x.bandwidth)
     .attr("height", d => graphHeight - y(d.orders))
     .attr("fill", "orange")
-    .attr("x", d => x(d.name));
+    .attr("x", d => x(d.name))
+    .attr("y", d => y(d.orders));
 
   // create and call the axes
   const xAxis = d3.axisBottom(x);
