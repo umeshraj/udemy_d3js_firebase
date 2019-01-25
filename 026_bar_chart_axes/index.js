@@ -26,18 +26,23 @@ const graph = svg
   .attr("height", graphHeight)
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
+const xAxisGroup = graph
+  .append("g")
+  .attr("transform", `translate(0, ${graphHeight})`);
+const yAxisGroup = graph.append("g");
+
 // get the data
 d3.json("menu.json").then(data => {
   // setting up scales
   const y = d3
     .scaleLinear()
     .domain([0, d3.max(data, d => d.orders)])
-    .range([0, 500]);
+    .range([0, graphHeight]);
 
   const x = d3
     .scaleBand()
     .domain(data.map(item => item.name))
-    .range([0, 500])
+    .range([0, graphWidth])
     .paddingInner(0.2)
     .paddingOuter(0.2);
 
@@ -66,4 +71,11 @@ d3.json("menu.json").then(data => {
     .attr("height", d => y(d.orders))
     .attr("fill", "orange")
     .attr("x", d => x(d.name));
+
+  // create and call the axes
+  const xAxis = d3.axisBottom(x);
+  const yAxis = d3.axisLeft(y);
+  console.log(xAxis);
+  xAxisGroup.call(xAxis);
+  yAxisGroup.call(yAxis);
 });
