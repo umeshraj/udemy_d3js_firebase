@@ -1,9 +1,30 @@
 // Select svg
+const svgWidth = 600;
+const svgHeight = 600;
+
 const svg = d3
   .select(".canvas")
   .append("svg")
-  .attr("width", 600)
-  .attr("height", 600);
+  .attr("width", svgWidth)
+  .attr("height", svgHeight);
+
+// create margins and dimension
+const margin = {
+  top: 20,
+  right: 20,
+  bottom: 100,
+  left: 100
+};
+
+const graphWidth = svgWidth - margin.left - margin.right;
+const graphHeight = svgHeight - margin.top - margin.bottom;
+
+// create graph container
+const graph = svg
+  .append("g")
+  .attr("width", graphWidth)
+  .attr("height", graphHeight)
+  .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // get the data
 d3.json("menu.json").then(data => {
@@ -28,7 +49,7 @@ d3.json("menu.json").then(data => {
   // console.log(extent);
 
   // join the data to a rect
-  const rects = svg.selectAll("rect").data(data);
+  const rects = graph.selectAll("rect").data(data);
 
   // handle the existing rect
   rects
