@@ -32,7 +32,23 @@ const xAxisGroup = graph
 const yAxisGroup = graph.append("g");
 
 // get the data
-d3.json("menu.json").then(data => plotBar(data));
+async function loadAndPlot() {
+  const config = await d3.json("apiKeyFirebase.json");
+  firebase.initializeApp(config);
+  const db = firebase.firestore();
+
+  // get the data
+  const res = await db.collection("dishes").get();
+
+  // convert to data array
+  const data = [];
+  res.docs.forEach(doc => data.push(doc.data()));
+
+  plotBar(data);
+}
+
+// load data and plot it
+loadAndPlot();
 
 // plot the data
 function plotBar(data) {
