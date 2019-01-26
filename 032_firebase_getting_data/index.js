@@ -32,7 +32,10 @@ const xAxisGroup = graph
 const yAxisGroup = graph.append("g");
 
 // get the data
-d3.json("menu.json").then(data => {
+d3.json("menu.json").then(data => plotBar(data));
+
+// plot the data
+function plotBar(data) {
   // setting up scales
   const y = d3
     .scaleLinear()
@@ -45,13 +48,6 @@ d3.json("menu.json").then(data => {
     .range([0, graphWidth])
     .paddingInner(0.2)
     .paddingOuter(0.2);
-
-  // const min = d3.min(data, d => d.orders);
-  // const max = d3.max(data, d => d.orders);
-  // const extent = d3.extent(data, d => d.orders);
-  // console.log(min);
-  // console.log(max);
-  // console.log(extent);
 
   // join the data to a rect
   const rects = graph.selectAll("rect").data(data);
@@ -90,4 +86,4 @@ d3.json("menu.json").then(data => {
     .attr("transform", "rotate(-40)")
     .attr("text-anchor", "end")
     .attr("fill", "orange");
-});
+}
