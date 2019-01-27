@@ -101,8 +101,13 @@ async function loadAndPlot() {
   // convert to data array
   const data = [];
   res.docs.forEach(doc => data.push(doc.data()));
-
   update(data);
+
+  // interval function
+  d3.interval(() => {
+    data[0].orders += 50;
+    // update(data);
+  }, 1000);
 }
 
 // load data and plot it
