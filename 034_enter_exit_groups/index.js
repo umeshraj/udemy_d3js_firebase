@@ -26,6 +26,14 @@ const graph = svg
   .attr("height", graphHeight)
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
+graph.append("rect");
+graph.append("rect");
+graph.append("rect");
+graph.append("rect");
+graph.append("rect");
+graph.append("rect");
+graph.append("rect");
+
 const xAxisGroup = graph
   .append("g")
   .attr("transform", `translate(0, ${graphHeight})`);
@@ -68,38 +76,40 @@ function plotBar(data) {
   // join the data to a rect
   const rects = graph.selectAll("rect").data(data);
 
-  // handle the existing rect
-  rects
-    .attr("width", x.bandwidth)
-    .attr("height", d => graphHeight - y(d.orders))
-    .attr("fill", "orange")
-    .attr("x", d => x(d.name))
-    .attr("y", d => y(d.orders));
+  console.log(rects);
 
-  // append the enter selection to dom
-  rects
-    .enter()
-    .append("rect")
-    .attr("width", x.bandwidth)
-    .attr("height", d => graphHeight - y(d.orders))
-    .attr("fill", "orange")
-    .attr("x", d => x(d.name))
-    .attr("y", d => y(d.orders));
+  // // handle the existing rect
+  // rects
+  //   .attr("width", x.bandwidth)
+  //   .attr("height", d => graphHeight - y(d.orders))
+  //   .attr("fill", "orange")
+  //   .attr("x", d => x(d.name))
+  //   .attr("y", d => y(d.orders));
 
-  // create and call the axes
-  const xAxis = d3.axisBottom(x);
-  const yAxis = d3
-    .axisLeft(y)
-    .ticks(3)
-    .tickFormat(d => `${d} orders`);
+  // // append the enter selection to dom
+  // rects
+  //   .enter()
+  //   .append("rect")
+  //   .attr("width", x.bandwidth)
+  //   .attr("height", d => graphHeight - y(d.orders))
+  //   .attr("fill", "orange")
+  //   .attr("x", d => x(d.name))
+  //   .attr("y", d => y(d.orders));
 
-  xAxisGroup.call(xAxis);
-  yAxisGroup.call(yAxis);
+  // // create and call the axes
+  // const xAxis = d3.axisBottom(x);
+  // const yAxis = d3
+  //   .axisLeft(y)
+  //   .ticks(3)
+  //   .tickFormat(d => `${d} orders`);
 
-  // rotate x ticks
-  xAxisGroup
-    .selectAll("text")
-    .attr("transform", "rotate(-40)")
-    .attr("text-anchor", "end")
-    .attr("fill", "orange");
+  // xAxisGroup.call(xAxis);
+  // yAxisGroup.call(yAxis);
+
+  // // rotate x ticks
+  // xAxisGroup
+  //   .selectAll("text")
+  //   .attr("transform", "rotate(-40)")
+  //   .attr("text-anchor", "end")
+  //   .attr("fill", "orange");
 }
