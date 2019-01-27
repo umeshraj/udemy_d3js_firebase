@@ -31,44 +31,42 @@ const xAxisGroup = graph
   .attr("transform", `translate(0, ${graphHeight})`);
 const yAxisGroup = graph.append("g");
 
-// get the data
-async function loadAndPlot() {
-  const config = await d3.json("apiKeyFirebase.json");
-  firebase.initializeApp(config);
-  const db = firebase.firestore();
+// Scales
+const y = d3.scaleLinear().range([graphHeight, 0]);
 
-  // get the data
-  const res = await db.collection("dishes").get();
+const x = d3
+  .scaleBand()
+  .range([0, graphWidth])
+  .paddingInner(0.2)
+  .paddingOuter(0.2);
 
-  // convert to data array
-  const data = [];
-  res.docs.forEach(doc => data.push(doc.data()));
+// create the axes
+const xAxis = d3.axisBottom(x);
+const yAxis = d3
+  .axisLeft(y)
+  .ticks(3)
+  .tickFormat(d => `${d} orders`);
 
-  plotBar(data);
-}
+// rotate x ticks
+xAxisGroup
+  .selectAll("text")
+  .attr("transform", "rotate(-40)")
+  .attr("text-anchor", "end")
+  .attr("fill", "orange");
 
-// load data and plot it
-loadAndPlot();
-
-// plot the data
-function plotBar(data) {
-  // setting up scales
-  const y = d3
-    .scaleLinear()
-    .domain([0, d3.max(data, d => d.orders)])
-    .range([graphHeight, 0]);
-
-  const x = d3
-    .scaleBand()
-    .domain(data.map(item => item.name))
-    .range([0, graphWidth])
-    .paddingInner(0.2)
-    .paddingOuter(0.2);
+// update function
+const update = data => {
+  // update scale domains
+  y.domain([0, d3.max(data, d => d.orders)]);
+  x.domain(data.map(item => item.name));
 
   // join the data to a rect
   const rects = graph.selectAll("rect").data(data);
 
-  // handle the existing rect
+  // remove exit selection
+  rects.exit().remove();
+
+  // update current shapes in dom
   rects
     .attr("width", x.bandwidth)
     .attr("height", d => graphHeight - y(d.orders))
@@ -86,20 +84,26 @@ function plotBar(data) {
     .attr("x", d => x(d.name))
     .attr("y", d => y(d.orders));
 
-  // create and call the axes
-  const xAxis = d3.axisBottom(x);
-  const yAxis = d3
-    .axisLeft(y)
-    .ticks(3)
-    .tickFormat(d => `${d} orders`);
-
+  // draw/call the axes
   xAxisGroup.call(xAxis);
   yAxisGroup.call(yAxis);
+};
 
-  // rotate x ticks
-  xAxisGroup
-    .selectAll("text")
-    .attr("transform", "rotate(-40)")
-    .attr("text-anchor", "end")
-    .attr("fill", "orange");
+// get the data
+async function loadAndPlot() {
+  const config = await d3.json("apiKeyFirebase.json");
+  firebase.initializeApp(config);
+  const db = firebase.firestore();
+
+  // get the data
+  const res = await db.collection("dishes").get();
+
+  // convert to data array
+  const data = [];
+  res.docs.forEach(doc => data.push(doc.data()));
+
+  update(data);
 }
+
+// load data and plot it
+loadAndPlot();
