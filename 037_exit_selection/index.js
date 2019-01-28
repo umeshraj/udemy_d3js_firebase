@@ -105,8 +105,9 @@ async function loadAndPlot() {
 
   // interval function
   d3.interval(() => {
-    data[0].orders += 50;
-    // update(data);
+    // data[0].orders += 50;
+    data.pop();
+    update(data);
   }, 1000);
 }
 
