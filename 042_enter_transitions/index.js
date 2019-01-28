@@ -79,10 +79,14 @@ const update = data => {
     .enter()
     .append("rect")
     .attr("width", x.bandwidth)
-    .attr("height", d => graphHeight - y(d.orders))
     .attr("fill", "orange")
+    .attr("height", 0)
+    .attr("y", graphHeight)
     .attr("x", d => x(d.name))
-    .attr("y", d => y(d.orders));
+    .transition()
+    .duration(1000)
+    .attr("y", d => y(d.orders))
+    .attr("height", d => graphHeight - y(d.orders));
 
   // draw/call the axes
   xAxisGroup.call(xAxis);
