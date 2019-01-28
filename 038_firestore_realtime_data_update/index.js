@@ -90,25 +90,20 @@ const update = data => {
 };
 
 // get the data
+let data = [];
 async function loadAndPlot() {
   const config = await d3.json("apiKeyFirebase.json");
   firebase.initializeApp(config);
   const db = firebase.firestore();
 
-  // get the data
-  const res = await db.collection("dishes").get();
+  db.collection("dishes").onSnapshot(res => {
+    const docChanges = res.docChanges();
+    docChanges.forEach(change => {
+      console.log(change.doc.data());
+    });
 
-  // convert to data array
-  const data = [];
-  res.docs.forEach(doc => data.push(doc.data()));
-  update(data);
-
-  // interval function
-  d3.interval(() => {
-    // data[0].orders += 50;
-    data.pop();
     update(data);
-  }, 1000);
+  });
 }
 
 // load data and plot it
