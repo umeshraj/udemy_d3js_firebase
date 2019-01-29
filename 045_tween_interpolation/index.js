@@ -55,7 +55,7 @@ xAxisGroup
   .attr("fill", "orange");
 
 // save common code in variables
-const t = d3.transition().duration(1000);
+const t = d3.transition().duration(1500);
 
 // update function
 const update = data => {
@@ -89,6 +89,7 @@ const update = data => {
     .attr("x", d => x(d.name))
     .merge(rects)
     .transition(t)
+    .attrTween("width", widthTween)
     .attr("y", d => y(d.orders))
     .attr("height", d => graphHeight - y(d.orders));
 
@@ -132,6 +133,21 @@ async function loadAndPlot() {
     update(data);
   });
 }
+
+// Custom tweens
+const widthTween = function(d) {
+  // define interpolation
+  // d3.interpolate returns a function, we call i
+
+  // interpFn input is 0 to 1
+  let interpFn = d3.interpolate(0, x.bandwidth());
+
+  // return a function which takes in a time ticket, t
+  return function(t) {
+    // return value obtained by passing the ticker to the interpolator
+    return interpFn(t);
+  };
+};
 
 // load data and plot it
 loadAndPlot();
