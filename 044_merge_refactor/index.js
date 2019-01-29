@@ -54,6 +54,9 @@ xAxisGroup
   .attr("text-anchor", "end")
   .attr("fill", "orange");
 
+// save common code in variables
+const t = d3.transition().duration(1000);
+
 // update function
 const update = data => {
   // update scale domains
@@ -70,11 +73,10 @@ const update = data => {
   rects
     .attr("width", x.bandwidth)
     .attr("fill", "orange")
-    .attr("x", d => x(d.name))
-    .transition()
-    .duration(1000)
-    .attr("y", d => y(d.orders))
-    .attr("height", d => graphHeight - y(d.orders));
+    .attr("x", d => x(d.name));
+  // .transition(t)
+  // .attr("y", d => y(d.orders))
+  // .attr("height", d => graphHeight - y(d.orders));
 
   // append the enter selection to dom
   rects
@@ -85,8 +87,8 @@ const update = data => {
     .attr("height", 0)
     .attr("y", graphHeight)
     .attr("x", d => x(d.name))
-    .transition()
-    .duration(1000)
+    .merge(rects)
+    .transition(t)
     .attr("y", d => y(d.orders))
     .attr("height", d => graphHeight - y(d.orders));
 
