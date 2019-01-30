@@ -5,7 +5,7 @@ fetch("apiKeyFirebase.json")
   .then(config => {
     firebase.initializeApp(config);
     db = firebase.firestore();
-    console.log(db);
+    // console.log(db);
   });
 
 // various handles
@@ -29,6 +29,10 @@ form.addEventListener("submit", e => {
     db.collection("expenses")
       .add(item)
       .then(res => {
+        // clear error message
+        error.textContent = "";
+
+        // clear input fields
         name.value = "";
         cost.value = "";
       });
