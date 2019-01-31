@@ -1,12 +1,16 @@
-let db;
-// Initialize Firebase
-fetch("apiKeyFirebase.json")
-  .then(res => res.json())
-  .then(config => {
-    firebase.initializeApp(config);
-    db = firebase.firestore();
-    // console.log(db);
-  });
+// let db;
+// // Initialize Firebase
+// fetch("apiKeyFirebase.json")
+//   .then(res => res.json())
+//   .then(config => {
+//     firebase.initializeApp(config);
+//     db = firebase.firestore();
+//     // console.log(db);
+//   });
+
+// note config comes from import
+firebase.initializeApp(config);
+const db = firebase.firestore();
 
 // various handles
 const form = document.querySelector("form");
