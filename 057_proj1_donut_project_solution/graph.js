@@ -38,6 +38,12 @@ const update = data => {
   // join enhanced (pie) data to path elements
   const paths = graph.selectAll("path").data(pie(data));
 
+  // exit select: remove paths
+  paths.exit().remove();
+
+  // update existing
+  paths.attr("d", arcPath);
+
   paths
     .enter()
     .append("path")
@@ -64,8 +70,10 @@ db.collection("expenses").onSnapshot(res => {
         data[index] = doc;
         break;
 
-      case " removed":
+      case "removed":
         data = data.filter(item => item.id !== doc.id);
+        console.log("removed");
+        console.log(data);
         break;
 
       default:
