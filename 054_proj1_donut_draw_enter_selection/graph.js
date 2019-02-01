@@ -28,7 +28,16 @@ const arcPath = d3
 
 // update function
 const update = data => {
-  console.log(data);
+  // console.log(data);
+  // join enhanced (pie) data to path elements
+  const paths = graph.selectAll("path").data(pie(data));
+  paths
+    .enter()
+    .append("path")
+    .attr("class", "arc")
+    .attr("d", arcPath)
+    .attr("stroke", "white")
+    .attr("stroke-width", 3);
 };
 
 // data array and firestore
