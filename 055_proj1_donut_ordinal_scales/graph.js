@@ -26,18 +26,26 @@ const arcPath = d3
   .outerRadius(dims.radius)
   .innerRadius(dims.radius / 2);
 
+// ordinal scale
+const colorScale = d3.scaleOrdinal().range(d3["schemeSet3"]);
+
 // update function
 const update = data => {
+  // update colorScale domain
+  colorScale.domain(data.map(item => item.name));
+
   // console.log(data);
   // join enhanced (pie) data to path elements
   const paths = graph.selectAll("path").data(pie(data));
+
   paths
     .enter()
     .append("path")
     .attr("class", "arc")
     .attr("d", arcPath)
     .attr("stroke", "white")
-    .attr("stroke-width", 3);
+    .attr("stroke-width", 3)
+    .attr("fill", d => colorScale([d.data.name]));
 };
 
 // data array and firestore
