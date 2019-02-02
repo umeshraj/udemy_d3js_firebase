@@ -48,10 +48,12 @@ const update = data => {
     .enter()
     .append("path")
     .attr("class", "arc")
-    .attr("d", arcPath)
     .attr("stroke", "white")
     .attr("stroke-width", 3)
-    .attr("fill", d => colorScale([d.data.name]));
+    .attr("fill", d => colorScale([d.data.name]))
+    .transition()
+    .duration(750)
+    .attrTween("d", arcTweenEnter);
 };
 
 // data array and firestore
