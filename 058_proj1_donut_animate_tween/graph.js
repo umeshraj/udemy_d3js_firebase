@@ -83,3 +83,12 @@ db.collection("expenses").onSnapshot(res => {
 
   update(data);
 });
+
+const arcTweenEnter = d => {
+  var i = d3.interpolate(d.endAngle, d.startAngle);
+
+  return function(t) {
+    d.startAngle = i(t);
+    return arcPath(d);
+  };
+};
