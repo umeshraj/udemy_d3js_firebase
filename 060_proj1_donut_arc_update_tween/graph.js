@@ -47,7 +47,11 @@ const update = data => {
     .remove();
 
   // update existing
-  paths.attr("d", arcPath);
+  paths
+    .attr("d", arcPath)
+    .transition()
+    .duration(750)
+    .attrTween("d", arcTweenUpdate);
 
   paths
     .enter()
@@ -56,6 +60,9 @@ const update = data => {
     .attr("stroke", "white")
     .attr("stroke-width", 3)
     .attr("fill", d => colorScale([d.data.name]))
+    .each(function(d) {
+      this._current = d;
+    })
     .transition()
     .duration(750)
     .attrTween("d", arcTweenEnter);
@@ -108,3 +115,19 @@ const arcTweenExit = d => {
     return arcPath(d);
   };
 };
+
+// using function key word to allow use of 'this'
+
+function arcTweenUpdate(d) {
+  // console.log(this._current, d);
+
+  // interpolate between two objects
+  const interpFn = d3.interpolate(this._current, d);
+
+  // update the current property with new data after transition
+  this._current = interpFn(1); // or 'd'
+
+  return function(t) {
+    return arcPath(interpFn(t));
+  };
+}
