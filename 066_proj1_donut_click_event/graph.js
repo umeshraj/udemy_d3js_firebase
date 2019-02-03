@@ -85,7 +85,8 @@ const update = data => {
   graph
     .selectAll("path")
     .on("mouseover", handleMouseOver)
-    .on("mouseout", handleMouseOut);
+    .on("mouseout", handleMouseOut)
+    .on("click", handleClick);
 };
 
 // data array and firestore
@@ -107,7 +108,6 @@ db.collection("expenses").onSnapshot(res => {
       case "removed":
         data = data.filter(item => item.id !== doc.id);
         console.log("removed");
-        console.log(data);
         break;
 
       default:
@@ -166,4 +166,12 @@ const handleMouseOut = (d, i, n) => {
     .transition("changeSliceFill")
     .duration(300)
     .attr("fill", colorScale(d.data.name));
+};
+
+const handleClick = d => {
+  // console.log(d);
+  const id = d.data.id;
+  db.collection("expenses")
+    .doc(id)
+    .delete();
 };
