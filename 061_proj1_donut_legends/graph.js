@@ -36,6 +36,7 @@ const legendGroup = svg
 const legend = d3
   .legendColor()
   .shape("circle")
+  .shapePadding(10)
   .scale(colorScale);
 
 // update function
@@ -45,6 +46,7 @@ const update = data => {
 
   // update legend
   legendGroup.call(legend);
+  legendGroup.selectAll("text").attr("fill", "white");
 
   // console.log(data);
   // join enhanced (pie) data to path elements
