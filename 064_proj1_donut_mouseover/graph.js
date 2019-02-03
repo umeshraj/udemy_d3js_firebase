@@ -82,7 +82,10 @@ const update = data => {
     .attrTween("d", arcTweenEnter);
 
   // add event listeners
-  graph.selectAll("path").on("mouseover", handleMouseOver);
+  graph
+    .selectAll("path")
+    .on("mouseover", handleMouseOver)
+    .on("mouseout", handleMouseOut);
 };
 
 // data array and firestore
@@ -156,4 +159,11 @@ const handleMouseOver = (d, i, n) => {
     .transition()
     .duration(300)
     .attr("fill", "white");
+};
+
+const handleMouseOut = (d, i, n) => {
+  d3.select(n[i])
+    .transition()
+    .duration(300)
+    .attr("fill", colorScale(d.data.name));
 };
