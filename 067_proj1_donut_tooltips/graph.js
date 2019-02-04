@@ -39,6 +39,15 @@ const legend = d3
   .shapePadding(10)
   .scale(colorScale);
 
+// tooltip
+const tip = d3
+  .tip()
+  .attr("class", "tip card")
+  .html(d => {
+    return `<p> Hello, world!</p>`;
+  });
+graph.call(tip);
+
 // update function
 const update = data => {
   // update colorScale domain
@@ -84,8 +93,14 @@ const update = data => {
   // add event listeners
   graph
     .selectAll("path")
-    .on("mouseover", handleMouseOver)
-    .on("mouseout", handleMouseOut)
+    .on("mouseover", (d, i, n) => {
+      handleMouseOver(d, i, n);
+      tip.show(d, n[i]);
+    })
+    .on("mouseout", (d, i, n) => {
+      handleMouseOut(d, i, n);
+      tip.hide();
+    })
     .on("click", handleClick);
 };
 
