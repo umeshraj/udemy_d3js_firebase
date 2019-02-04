@@ -5,7 +5,6 @@ const formAct = document.querySelector("form span");
 const input = document.querySelector("input");
 const error = document.querySelector(".error");
 
-console.log(btns);
 // event listeners for buttons
 let activity = "cycling";
 btns.forEach(btn => {
