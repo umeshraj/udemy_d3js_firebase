@@ -1,3 +1,7 @@
+// database initialize (config comes from import)
+firebase.initializeApp(config);
+const db = firebase.firestore();
+
 // DOM elements
 const btns = document.querySelectorAll("button");
 const form = document.querySelector("form");
@@ -22,4 +26,27 @@ btns.forEach(btn => {
     // set text of form span
     formAct.textContent = activity;
   });
+});
+
+// form submit
+form.addEventListener("submit", e => {
+  e.preventDefault();
+
+  // get distance data
+  const distance = parseInt(input.value);
+  if (distance) {
+    db.collection("activities")
+      .add({
+        distance: distance,
+        activity: activity,
+        date: new Date().toString()
+      })
+      .then(() => {
+        error.textContent = "";
+        input.value = "";
+      });
+  } else {
+    // no distance
+    error.textContent = "Please enter a valid distance";
+  }
 });
