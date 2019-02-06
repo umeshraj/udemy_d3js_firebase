@@ -36,12 +36,24 @@ const update = data => {
   yScale.domain([0, d3.max(data, d => d.distance)]);
 
   // create the axes
-  const xAxis = d3.axisBottom(xScale).ticks(4);
-  const yAxis = d3.axisLeft(yScale).ticks(4);
+  const xAxis = d3
+    .axisBottom(xScale)
+    .ticks(4)
+    .tickFormat(d3.timeFormat("%b %d"));
+  const yAxis = d3
+    .axisLeft(yScale)
+    .ticks(4)
+    .tickFormat(d => d + "m");
 
   // place inside the axis groups
   xAxisGroup.call(xAxis);
   yAxisGroup.call(yAxis);
+
+  // rotate axes text
+  xAxisGroup
+    .selectAll("text")
+    .attr("transform", "rotate(-40)")
+    .attr("text-anchor", "end");
 };
 
 // realtime data setup
