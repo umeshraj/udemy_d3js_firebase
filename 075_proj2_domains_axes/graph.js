@@ -30,7 +30,18 @@ const xAxisGroup = graph
 const yAxisGroup = graph.append("g").attr("class", "y-axis");
 
 const update = data => {
-  console.log(data);
+  // console.log(data);
+  // set scale domains
+  xScale.domain(d3.extent(data, d => new Date(d.date)));
+  yScale.domain([0, d3.max(data, d => d.distance)]);
+
+  // create the axes
+  const xAxis = d3.axisBottom(xScale).ticks(4);
+  const yAxis = d3.axisLeft(yScale).ticks(4);
+
+  // place inside the axis groups
+  xAxisGroup.call(xAxis);
+  yAxisGroup.call(yAxis);
 };
 
 // realtime data setup
