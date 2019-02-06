@@ -1,6 +1,24 @@
 // data and firestore
 let data = [];
 
+const margin = { top: 40, right: 20, bottom: 50, left: 100 };
+const svgWidth = 560;
+const svgHeight = 400;
+const graphWidth = svgWidth - margin.left - margin.right;
+const graphHeight = svgHeight - margin.top - margin.bottom;
+
+const svg = d3
+  .select(".canvas")
+  .append("svg")
+  .attr("width", svgWidth)
+  .attr("height", svgHeight);
+
+const graph = svg
+  .append("g")
+  .attr("width", graphWidth)
+  .attr("heigh", graphHeight)
+  .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
 const update = data => {
   console.log(data);
 };
