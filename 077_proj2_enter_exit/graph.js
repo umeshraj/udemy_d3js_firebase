@@ -38,6 +38,14 @@ const update = data => {
   // create circles for objects
   const circles = graph.selectAll("circle").data(data);
 
+  // remove unwanted points
+  circles.exit().remove();
+
+  // update current points
+  circles
+    .attr("cx", d => xScale(new Date(d.date)))
+    .attr("cy", d => yScale(d.distance));
+
   // add new circles
   console.log(circles);
   circles
