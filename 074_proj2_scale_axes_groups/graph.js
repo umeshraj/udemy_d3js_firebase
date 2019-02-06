@@ -19,6 +19,16 @@ const graph = svg
   .attr("heigh", graphHeight)
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
+// set up the scales
+const xScale = d3.scaleTime().range([0, graphWidth]);
+const yScale = d3.scaleLinear().range([graphHeight, 0]);
+// axes groups
+const xAxisGroup = graph
+  .append("g")
+  .attr("class", "x-axis")
+  .attr("transform", `translate(0, ${graphHeight})`);
+const yAxisGroup = graph.append("g").attr("class", "y-axis");
+
 const update = data => {
   console.log(data);
 };
