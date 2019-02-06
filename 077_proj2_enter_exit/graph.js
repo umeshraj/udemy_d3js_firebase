@@ -35,6 +35,19 @@ const update = data => {
   xScale.domain(d3.extent(data, d => new Date(d.date)));
   yScale.domain([0, d3.max(data, d => d.distance)]);
 
+  // create circles for objects
+  const circles = graph.selectAll("circle").data(data);
+
+  // add new circles
+  console.log(circles);
+  circles
+    .enter()
+    .append("circle")
+    .attr("r", 4)
+    .attr("cx", d => xScale(new Date(d.date)))
+    .attr("cy", d => yScale(d.distance))
+    .attr("fill", "#ccc");
+
   // create the axes
   const xAxis = d3
     .axisBottom(xScale)
