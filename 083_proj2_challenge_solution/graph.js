@@ -86,7 +86,7 @@ const update = data => {
     .attr("cy", d => yScale(d.distance));
 
   // add new circles
-  console.log(circles);
+
   circles
     .enter()
     .append("circle")
@@ -114,7 +114,7 @@ const update = data => {
     yDotLine
       .attr("x1", xScale(new Date(d.date)))
       .attr("x2", xScale(new Date(d.date)))
-      .attr("y1", yScale(0))
+      .attr("y1", graphHeight)
       .attr("y2", yScale(d.distance));
   });
   // mouse leave
