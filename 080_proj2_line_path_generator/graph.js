@@ -29,14 +29,33 @@ const xAxisGroup = graph
   .attr("transform", `translate(0, ${graphHeight})`);
 const yAxisGroup = graph.append("g").attr("class", "y-axis");
 
+// line path generator
+const line = d3
+  .line()
+  .x(d => xScale(new Date(d.date)))
+  .y(d => yScale(d.distance));
+
+// line path element
+const path = graph.append("path");
+
 const update = data => {
   // filter data
   data = data.filter(item => item.activity === activity);
+  // sort data by date object
+  data.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   // console.log(data);
   // set scale domains
   xScale.domain(d3.extent(data, d => new Date(d.date)));
   yScale.domain([0, d3.max(data, d => d.distance)]);
+
+  // update path data
+  path
+    .data([data])
+    .attr("fill", "none")
+    .attr("stroke", "#00bfa5")
+    .attr("stroke-width", 2)
+    .attr("d", line);
 
   // create circles for objects
   const circles = graph.selectAll("circle").data(data);
