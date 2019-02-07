@@ -123,6 +123,10 @@ const update = data => {
       .duration(100)
       .attr("r", 4)
       .attr("fill", "#ccc");
+
+    // hide the xDotLine and yDotLine
+    xDotLine.style("opacity", 0);
+    yDotLine.style("opacity", 0);
   });
 
   // create the axes
