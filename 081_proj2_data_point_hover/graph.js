@@ -78,6 +78,23 @@ const update = data => {
     .attr("cy", d => yScale(d.distance))
     .attr("fill", "#ccc");
 
+  // Increase cirle on mouseover
+  graph.selectAll("circle").on("mouseover", (d, i, n) => {
+    d3.select(n[i])
+      .transition()
+      .duration(100)
+      .attr("r", 8)
+      .attr("fill", "white");
+  });
+  // mouse leave
+  graph.selectAll("circle").on("mouseleave", (d, i, n) => {
+    d3.select(n[i])
+      .transition()
+      .duration(100)
+      .attr("r", 4)
+      .attr("fill", "#ccc");
+  });
+
   // create the axes
   const xAxis = d3
     .axisBottom(xScale)
