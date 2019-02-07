@@ -39,18 +39,21 @@ const line = d3
 const path = graph.append("path");
 
 // create dotted line group and append to graph
-const dotLineGroup = graph.append("g");
+const dotLineGroup = graph
+  .append("g")
+  .attr("class", "lines")
+  .attr("opacity", 0);
 
 // create x dotted line and append to dotted line group
 const xDotLine = dotLineGroup
   .append("line")
-  .style("stroke", "white")
-  .style("stroke-dasharray", (5, 5));
+  .attr("stroke", "white")
+  .attr("stroke-dasharray", 4);
 // create y dotted line and append to dotted line group
 const yDotLine = dotLineGroup
   .append("line")
-  .style("stroke", "white")
-  .style("stroke-dasharray", (5, 5));
+  .attr("stroke", "white")
+  .attr("stroke-dasharray", 4);
 
 const update = data => {
   // filter data
@@ -101,16 +104,14 @@ const update = data => {
       .attr("fill", "white");
 
     // set horizontal line
-
+    dotLineGroup.attr("opacity", 1);
     xDotLine
-      .style("opacity", 1)
       .attr("x1", 0)
       .attr("x2", xScale(new Date(d.date)))
       .attr("y1", yScale(d.distance))
       .attr("y2", yScale(d.distance));
     // set vertical line
     yDotLine
-      .style("opacity", 1)
       .attr("x1", xScale(new Date(d.date)))
       .attr("x2", xScale(new Date(d.date)))
       .attr("y1", yScale(0))
@@ -125,8 +126,7 @@ const update = data => {
       .attr("fill", "#ccc");
 
     // hide the xDotLine and yDotLine
-    xDotLine.style("opacity", 0);
-    yDotLine.style("opacity", 0);
+    dotLineGroup.attr("opacity", 0);
   });
 
   // create the axes
