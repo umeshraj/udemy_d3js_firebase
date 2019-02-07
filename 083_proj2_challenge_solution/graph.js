@@ -99,6 +99,22 @@ const update = data => {
       .duration(100)
       .attr("r", 8)
       .attr("fill", "white");
+
+    // set horizontal line
+
+    xDotLine
+      .style("opacity", 1)
+      .attr("x1", 0)
+      .attr("x2", xScale(new Date(d.date)))
+      .attr("y1", yScale(d.distance))
+      .attr("y2", yScale(d.distance));
+    // set vertical line
+    yDotLine
+      .style("opacity", 1)
+      .attr("x1", xScale(new Date(d.date)))
+      .attr("x2", xScale(new Date(d.date)))
+      .attr("y1", yScale(0))
+      .attr("y2", yScale(d.distance));
   });
   // mouse leave
   graph.selectAll("circle").on("mouseleave", (d, i, n) => {
