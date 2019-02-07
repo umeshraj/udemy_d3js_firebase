@@ -30,6 +30,9 @@ const xAxisGroup = graph
 const yAxisGroup = graph.append("g").attr("class", "y-axis");
 
 const update = data => {
+  // filter data
+  data = data.filter(item => item.activity === activity);
+
   // console.log(data);
   // set scale domains
   xScale.domain(d3.extent(data, d => new Date(d.date)));
