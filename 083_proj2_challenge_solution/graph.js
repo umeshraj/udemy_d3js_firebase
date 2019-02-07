@@ -38,6 +38,20 @@ const line = d3
 // line path element
 const path = graph.append("path");
 
+// create dotted line group and append to graph
+const dotLineGroup = graph.append("g");
+
+// create x dotted line and append to dotted line group
+const xDotLine = dotLineGroup
+  .append("line")
+  .style("stroke", "white")
+  .style("stroke-dasharray", (5, 5));
+// create y dotted line and append to dotted line group
+const yDotLine = dotLineGroup
+  .append("line")
+  .style("stroke", "white")
+  .style("stroke-dasharray", (5, 5));
+
 const update = data => {
   // filter data
   data = data.filter(item => item.activity === activity);
