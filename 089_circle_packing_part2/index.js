@@ -52,6 +52,9 @@ const pack = d3
 
 const bubbleData = pack(rootNode).descendants();
 
+// create ordinal scales
+const colorScale = d3.scaleOrdinal().range(["#d1c4e9", "#b39ddb", "#9575cd"]);
+
 // join data and add group to each node
 const nodes = graph
   .selectAll("g")
@@ -66,7 +69,7 @@ nodes
   .attr("r", d => d.r)
   .attr("stroke", "white")
   .attr("stroke-width", 2)
-  .attr("fill", "purple");
+  .attr("fill", d => colorScale(d.depth));
 
 // add text only for leaves (no children)
 nodes
