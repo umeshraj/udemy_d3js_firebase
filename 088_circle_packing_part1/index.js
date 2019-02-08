@@ -26,6 +26,16 @@ const data = [
   { name: "classical", parent: "music", amount: 5 }
 ];
 
+// create svg
+const svg = d3
+  .select(".canvas")
+  .append("svg")
+  .attr("width", 1060)
+  .attr("height", 800);
+
+// create a graph group
+const graph = svg.append("g").attr("transform", "translate(50, 50)");
+
 // create a stratified object for work in D3
 const stratify = d3
   .stratify()
