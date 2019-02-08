@@ -42,4 +42,12 @@ const stratify = d3
   .id(d => d.name)
   .parentId(d => d.parent);
 
-console.log(stratify(data));
+const rootNode = stratify(data).sum(d => d.amount);
+
+// bubble pack
+const pack = d3
+  .pack()
+  .size([960, 700])
+  .padding(5);
+
+const bubbleData = pack(rootNode).descendants();
