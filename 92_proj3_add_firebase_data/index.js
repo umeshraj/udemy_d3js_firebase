@@ -20,4 +20,11 @@ form.addEventListener("submit", e => {
     parent: parent.value,
     department: department.value
   });
+
+  // close modal box
+  let instance = M.Modal.getInstance(modal);
+  instance.close();
+
+  // clear modal form inputs
+  form.reset();
 });
