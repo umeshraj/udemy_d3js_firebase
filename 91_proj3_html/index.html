@@ -19,6 +19,44 @@
     <title>Ninja Corp</title>
   </head>
   <body>
+    <!-- Strip on top -->
+    <div class="pink section">
+      <h2 class="white-text center">Ninja Corp</h2>
+    </div>
+    <!-- text below strip -->
+    <div class="grey lighten-3 section grey-text" style="position: relative">
+      <p class="flow-text center">The Number ONE Ninja Company</p>
+      <!-- + button on right -->
+      <a href="" class="btn-floating btn-large halfway-fab pink">
+        <i class="material-icons">add</i>
+      </a>
+    </div>
+
+    <!-- modal pop up for clicking + -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <h4 class="pink-text center">Add new employee</h4>
+        <form>
+          <!-- name -->
+          <div class="input-field">
+            <input type="text" id="name" placeholder="Employee Name" />
+          </div>
+          <!-- parent -->
+          <div class="input-field">
+            <input type="text" id="parent" placeholder="Reports to..." />
+          </div>
+          <!-- Department -->
+          <div class="input-field">
+            <input type="text" id="department" placeholder="Department" />
+          </div>
+          <!-- button -->
+          <div class="input-field">
+            <button class="btn pink white-text">Add Employee</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-firestore.js"></script>
