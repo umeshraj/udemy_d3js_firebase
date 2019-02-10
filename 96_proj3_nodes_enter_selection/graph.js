@@ -29,6 +29,15 @@ const update = data => {
 
   // get node selection and join to elements/data
   const nodes = graph.selectAll(".node").data(treeData.descendants());
+
+  // create enter node groups
+  const enterNodes = nodes
+    .enter()
+    .append("g")
+    .attr("class", "node")
+    .attr("transform", d => {
+      return `translate(${d.x}, ${d.y})`;
+    });
 };
 
 // data and firebase hook-up
