@@ -38,6 +38,22 @@ const update = data => {
     .attr("transform", d => {
       return `translate(${d.x}, ${d.y})`;
     });
+
+  // append rect to each enter nodes
+  enterNodes
+    .append("rect")
+    .attr("fill", "#aaa")
+    .attr("stroke", "#555")
+    .attr("stroke-width", 2)
+    .attr("height", 50)
+    .attr("width", d => d.data.name.length * 20);
+
+  // append name text
+  enterNodes
+    .append("text")
+    .attr("text-anchor", "middle")
+    .attr("fill", "black")
+    .text(d => d.data.name);
 };
 
 // data and firebase hook-up
