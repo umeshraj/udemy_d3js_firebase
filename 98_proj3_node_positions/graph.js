@@ -66,7 +66,11 @@ const update = data => {
     .attr("stroke", "#555")
     .attr("stroke-width", 2)
     .attr("height", 50)
-    .attr("width", d => d.data.name.length * 20);
+    .attr("width", d => d.data.name.length * 20)
+    .attr("transform", d => {
+      let x = (d.data.name.length * 20) / 2;
+      return `translate(${-x},  -25)`;
+    });
 
   // append name text
   enterNodes
