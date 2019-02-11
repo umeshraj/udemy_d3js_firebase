@@ -17,11 +17,17 @@ const stratify = d3
 
 const tree = d3.tree().size([dims.width, dims.height]);
 
+// create ordinal scale
+const colorScale = d3.scaleOrdinal().range(d3["schemeSet3"]);
+
 // update function
 const update = data => {
   // remove current nodes (to allow new data to fit correctly)
   graph.selectAll(".node").remove();
   graph.selectAll(".link").remove();
+
+  // update the domain of the ordinal scale
+  colorScale.domain(data.map(item => item.name));
 
   // get updated rootnode data
   const rootNode = stratify(data);
@@ -66,7 +72,7 @@ const update = data => {
   // append rect to each enter nodes
   enterNodes
     .append("rect")
-    .attr("fill", "#aaa")
+    .attr("fill", d => colorScale(d.data.department))
     .attr("stroke", "#555")
     .attr("stroke-width", 2)
     .attr("height", 50)
