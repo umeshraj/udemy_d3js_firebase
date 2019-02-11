@@ -19,6 +19,10 @@ const tree = d3.tree().size([dims.width, dims.height]);
 
 // update function
 const update = data => {
+  // remove current nodes (to allow new data to fit correctly)
+  graph.selectAll(".node").remove();
+  graph.selectAll(".link").remove();
+
   // get updated rootnode data
   const rootNode = stratify(data);
   // console.log(rootNode);
